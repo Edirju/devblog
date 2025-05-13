@@ -96,10 +96,10 @@ a:hover {
 	color: var(--accent);
 } */
 p {
-	margin-bottom: 1em;
+	margin: 0 0 1rem 0;
 }
 .prose p {
-	margin-bottom: 2em;
+	margin-bottom: 1rem;	
 }
 textarea {
 	width: 100%;
@@ -118,8 +118,8 @@ img {
 }
 code {
 	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
+	background-color: rgb(var(--blue-light),0.35);
+	border-radius: 2px;	
 }
 pre {
 	padding: 1.5em;
@@ -129,21 +129,24 @@ pre > code {
 	all: unset;
 }
 blockquote {
-	border-left: 4px solid var(--accent);
+	border-left: 4px solid rgb(var(--pink));
 	padding: 0 0 0 20px;
 	margin: 0px;
 	font-size: 1.333em;
+	font-family: var(--AtkinsonI);
+	letter-spacing: -0.025em;
+	line-height: 1.25;
 }
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border-top: 1px solid rgb(var(--blue-light),0.45);
 }
 @media (max-width: 720px) {
 	body {
-		font-size: 18px;
+		font-size: 16px;
 	}
 	main {
-		padding: 1em;
+		padding: 0em;
 	}
 }
 

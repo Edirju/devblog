@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Section from '../components/Section.astro';
+import Header from '../components/Header.astro';
+import Tasks from '../components/sections/Tasks.astro';
+import Footer from '../components/Footer.astro';
+
+import Data from '../icons/Data.astro';
+import { basics } from '../consts/landing.json';
+const { name, label } = basics;
+---
+<Layout title={`Galería de Proyectos de ${name} • ${label}`}>
+  <Header />
+</Layout>
