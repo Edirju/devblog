@@ -1,0 +1,37 @@
+---
+const { info } = Astro.props;
+const { theme = {} } = info;
+const { isDark = false } = theme;
+---
+
+<div
+  class="hidden sm:block absolute left-4 bottom-4 px-8 py-1 rounded-lg border border-[rgb(var(--blue-dark),0.08)] shadow-[0_3px_20px_rgb(0,0,0,0.2)]"
+>
+  <h1 class="font-bold mt-4">
+    <a
+      href="/projects"
+      class="flex items-center gap-2 text-xs hover:scale-110 transition duration-200 ease"
+    >
+      <div class="flex flex-col text-center leading-none">
+        <span> Ver+ </span>
+        <span> Proyecto </span>
+      </div>
+
+      <span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="rounded size-14"
+          ><path
+            d="M1 5C1 4.44772 1.44772 4 2 4H22C22.5523 4 23 4.44772 23 5V19C23 19.5523 22.5523 20 22 20H2C1.44772 20 1 19.5523 1 19V5ZM9 8H7V10H9V8ZM7 13V16H9V11H6V13H7ZM13 9V11H19V9H13ZM18 13H13V15H18V13Z"
+          ></path></svg
+        >
+      </span>
+    </a>
+  </h1>
+  <h2>
+    # {info.number}<span>•</span>{info.title}
+  </h2>
+  <a href="/projects"> ← Regresar a Proyectos. </a>
+</div>
