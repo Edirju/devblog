@@ -1,0 +1,134 @@
+---
+import Section from "../Section.astro";
+
+import Rss from "../../icons/Rss.astro";
+import Spreadsheet from "../../icons/Spreadsheet.astro";
+import Detail from "../../icons/Detail.astro";
+
+import { posteos } from "../../consts/social-rss.json";
+import FormattedDate from "../FormattedDate.astro";
+
+import { getCollection } from "astro:content";
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Section>
+  <article>
+    <header>
+      <h2>
+        <Spreadsheet />
+        Blog <span>|</span> Social Media posts:
+      </h2>
+    </header>
+    <footer>
+      <ul>
+        {
+          posteos.map(({ network, title, description, url, date }) => {
+            return (
+              <li>
+                <a href={url}>
+                  <Rss />
+                  <div>
+                    <h3>{title}</h3>
+                    <p>
+                      {date} <span>•</span> {network}
+                    </p>
+                  </div>
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </footer>
+  </article>
+</Section>
+
+<style>
+  article {
+    font-family: var(--Inter);
+    color: rgb(var(--light), 0.85);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 700;
+        text-wrap: pretty;
+        letter-spacing: -0.05em;
+        font-size: clamp(1rem, 0.518vw + 0.879rem, 1.5rem);
+        span {
+          font-weight: 200;
+          color: rgb(var(--blue-light), 0.25);
+        }
+      }
+    }
+    footer {
+      ul {
+        display: flex;
+        flex-direction: column;
+        /* flex-wrap: wrap; */
+        gap: 0.5rem /* 4px */;
+        color: rgb(var(--light), 0.55);
+        li a {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.5rem;
+          div {
+            border-left: 1px solid rgb(var(--blue-light), 0.15);
+            padding-left: 0.5rem;
+            h3 {
+              font-size: clamp(0.875rem, 0.838rem + 0.1852vw, 1rem);
+              font-weight: 500;
+              padding: 0;
+              margin: 0;
+              position: relative;
+              transition: all 0.2s ease;
+              &::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 100%;
+                height: 1.5px;
+                background-color: rgb(var(--blue-light), 0.65);
+                transform: scaleX(0);
+                transition: 0.2s;
+                transform-origin: left;
+              }
+              &:hover {
+                color: rgb(var(--blue-light), 0.65);
+              }
+              &:hover::after {
+                transform: scaleX(1);
+              }
+            }
+            p {
+              font-size: clamp(0.6875rem, 0.6505rem + 0.1852vw, 0.8125rem);
+              font-weight: 200;
+              font-family: var(--Inconsolata);
+              color: rgb(var(--light), 0.35);
+              padding: 0;
+              margin: 0;
+              span {
+                font-size: 16px;
+                font-weight: 700;
+                vertical-align: middle;
+                padding: 0;
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

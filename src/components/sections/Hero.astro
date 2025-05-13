@@ -1,0 +1,263 @@
+---
+import Section from "../Section.astro";
+
+import { basics } from "../../consts/landing.json";
+const { name, label, image, location, profiles, phone, email } = basics;
+const { city, region } = location;
+
+import Github from "../../icons/Github.astro";
+import Linkedin from "../../icons/Linkedin.astro";
+import Bluesky from "../../icons/Bluesky.astro";
+import Instagram from "../../icons/Instagram.astro";
+import Threads from "../../icons/Threads.astro";
+import Mail from "../../icons/Mail.astro";
+import Phone from "../../icons/Phone.astro";
+
+const SOCIAL_ICONS: Record<string, any> = {
+  Github,
+  Linkedin,
+  Bluesky,
+  Instagram,
+  Threads,
+};
+
+const linkedInfo = profiles.find(({ network }) => network === "Linkedin");
+const linkedUrl = linkedInfo?.url;
+const blueskyInfo = profiles.find(({ network }) => network === "Bluesky");
+const blueskyUrl = blueskyInfo?.url;
+const githubInfo = profiles.find(({ network }) => network === "Github");
+const githubUrl = githubInfo?.url;
+const instagramInfo = profiles.find(({ network }) => network === "Instagram");
+const instagramUrl = instagramInfo?.url;
+const threadsInfo = profiles.find(({ network }) => network === "Threads");
+const threadsUrl = threadsInfo?.url;
+
+const printInfo = [
+  email,
+  phone,
+  linkedUrl,
+  githubUrl,
+  instagramUrl,
+  threadsUrl,
+  blueskyUrl,
+]
+  .filter(Boolean)
+  .join(" • ");
+---
+
+<Section>
+  <article>
+    <header>
+      <h1>Desarrollo Web <span>|</span> Gestión Social Media.</h1>
+      <h2>
+        <p>
+          Hola! Soy <span>Edinson</span>. Escribo sobre cualquier cosa
+          relacionada con <strong> desarrollo web</strong>, <strong
+            >tecnología</strong
+          >, <strong> marketing digital</strong> y de vez en cuando sobre cosas interesantes
+          que cruzan en mí camino.
+        </p>
+      </h2>
+      <footer class="print">
+        {printInfo}
+      </footer>
+      <footer class="no-print">
+        {
+          email && (
+            <a
+              href={`mailto:${email}`}
+              title={`Enviar un correo electrónico a ${name} al correo ${email}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Mail />
+            </a>
+          )
+        }
+        {
+          phone && (
+            <a
+              href={`Tel:${phone}`}
+              title={`Llamar a ${name} al teléfono ${phone}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Phone />
+            </a>
+          )
+        }
+        {
+          profiles.map(({ network, url }) => {
+            const Icon = SOCIAL_ICONS[network];
+            if (!Icon) return null;
+            return (
+              <a
+                href={url}
+                title={`Visitar ${name} en ${network}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Icon />
+              </a>
+            );
+          })
+        }
+      </footer>
+    </header>
+    <figure class="circle">
+      <img src={image} alt={name} loading="lazy"/>
+    </figure>
+  </article>
+</Section>
+
+<style>
+  article {
+    font-family: var(--Inter);
+    color: rgb(var(--light), 0.85);
+    display: flex;
+    flex-direction: row;
+    place-items: center;
+    gap: 1rem;
+    @media (width <= 700px) {
+      flex-direction: column-reverse;
+    }
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      @media (width <= 700px) {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding-right: 0;
+      }
+      h1 {
+        font-size: clamp(1.125rem, 0.7917rem + 1.6667vw, 2.25rem);
+        font-weight: 700;
+        letter-spacing: -0.05em;
+        line-height: 1.25;
+        text-shadow: 0 0 0.5rem rgb(var(--light), 0.25);
+        background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(
+          to right,
+          rgb(var(--blue-light)),
+          rgb(var(--pink)),
+          rgb(var(--yellow-light)),
+          rgb(var(--light)),
+          rgb(var(--blue-light))
+        );
+        background-size: var(--bg-size);
+        --bg-size: 200%;
+        animation: animate 2s steps(5) infinite;
+        animation: animate 2s linear infinite;
+        animation: animate 2s ease infinite;
+        span {
+          font-weight: 300;
+          font-size: clamp(14px, 0.6898rem + 0.9259vw, 24px);
+        }
+      }
+      h2 {
+        color: rgb(var(--light), 0.5);
+        font-size: clamp(1rem, 0.963rem + 0.1852vw, 1.125rem);
+        font-weight: 200;
+        text-wrap: pretty;
+        letter-spacing: -0.025em;
+        & > p > strong {
+          color: rgb(var(--dark), 0.85);
+          background-color: rgb(var(--blue-light), 0.55);
+          text-shadow: 0 0 0.5rem rgb(var(--dark), 0.45);
+          font-size: clamp(0.8125rem, 0.7755rem + 0.1852vw, 0.9375rem);
+          font-weight: 500;
+          font-family: var(--Inconsolata);
+          padding-inline: 0.5rem;
+          padding-block: 0.125rem;
+          border-radius: 0.25rem;
+          letter-spacing: -0.05rem;
+        }
+        p span {
+          font-weight: 700;
+          letter-spacing: 0em;
+          color: rgb(var(--light), 0.65);
+          text-shadow: 0 0 0.5rem rgb(var(--blue-light), 0.45);
+        }
+      }
+      footer {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: rgb(var(--light), 0.55);
+        a {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 2rem;
+          height: 2rem;
+          border-radius: 0.375rem;
+          background-color: rgb(var(--light), 0.08);
+          border: 1px solid rgb(var(--light), 0.1);
+          transition: all 0.3s ease-in-out;
+          &:hover {
+            background-color: rgb(var(--blue-light), 0.15);
+            color: rgb(var(--blue-light), 0.85);
+            border: 1px solid rgb(var(--blue-light), 0.1);
+          }
+        }
+      }
+    }
+    figure {
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      width: 60%;      
+      position: relative;
+      border-radius: 50%;
+      outline: 10px solid rgb(var(--dark),0.55);
+      outline-offset: -12px;
+      @media (width <= 700px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+      }
+      img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        object-position: top;
+        border-radius: inherit;
+      }
+    }
+    figure::before,
+    figure::after {
+      position: absolute;
+      z-index: -1;
+      content: "";
+      inset: -16px;
+      border-radius: inherit;
+      background-image: conic-gradient(rgb(var(--blue-light)), rgb(var(--pink)), rgb(var(--blue-light)));
+      animation: rotate 3s linear infinite;
+    }
+    figure::after {
+      filter: blur(2rem);
+      opacity: 0.7;
+    }
+    figure:hover::before,
+    figure:hover::after {
+      animation-play-state: paused;
+    }
+  }
+  @keyframes animate {
+    to {
+      background-position: var(--bg-size);
+    }
+  }
+  @keyframes rotate {
+    from {
+      rotate: 0deg;
+    }
+    to {
+      rotate: 360deg;
+    }
+  }
+</style>

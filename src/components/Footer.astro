@@ -1,8 +1,106 @@
 ---
+import Section from "./Section.astro";
+import Linkedin from "../icons/Linkedin.astro";
+import Github from "../icons/Github.astro";
+import Bluesky from "../icons/Bluesky.astro";
+import Instagram from "../icons/Instagram.astro";
+import Threads from "../icons/Threads.astro";
+
 const today = new Date();
 ---
 
-<footer>
+<Section>
+  <footer>
+    <div class="header">
+      <h3>Edinson Rivera • Desarrollo Web • Gestión Social Media</h3>
+      <p>
+        &copy; {today.getFullYear()} @edirju. Todos los derechos reservados.
+      </p>
+    </div>
+    <div class="social-links">
+      <a
+        href="https://www.linkedin.com/in/edinson-rivera-jurado-65187927/"
+        target="_blank"
+      >
+        <span class="sr-only">Ir a</span>
+        <Linkedin />
+      </a>
+
+      <a
+        href="https://www.linkedin.com/in/edinson-rivera-jurado-65187927/"
+        target="_blank"
+      >
+        <span class="sr-only">Ir a</span>
+        <Github />
+      </a>
+
+      <a
+        href="https://www.linkedin.com/in/edinson-rivera-jurado-65187927/"
+        target="_blank"
+      >
+        <span class="sr-only">Ir a</span>
+        <Instagram />
+      </a>
+
+      <a
+        href="https://www.linkedin.com/in/edinson-rivera-jurado-65187927/"
+        target="_blank"
+      >
+        <span class="sr-only">Ir a</span>
+        <Threads />
+      </a>
+
+      <a
+        href="https://www.linkedin.com/in/edinson-rivera-jurado-65187927/"
+        target="_blank"
+      >
+        <span class="sr-only">Ir a</span>
+        <Bluesky />
+      </a>
+    </div>
+  </footer>
+</Section>
+
+<style>
+  footer {
+    font-family: var(--Inter);
+    font-weight: 300;
+    text-align: center;
+    color: rgb(var(--light), 0.65);
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      letter-spacing: -0.05em;
+      h3 {
+        font-size: clamp(0.875rem, 0.8009rem + 0.3704vw, 1.125rem);
+      }
+      p {
+        font-size: clamp(0.625rem, 0.5335rem + 0.3902vw, 0.875rem);
+        letter-spacing: normal;
+        color: rgb(var(--light), 0.25);
+      }
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1em;
+      margin-top: 0.5rem;
+      a {
+        text-decoration: none;
+        transition-property: transform, color;
+        transition-duration: 0.3s, 0.5s;
+        transition-delay: 0s, 0.1s;
+        &:hover {
+          transform: scale(1.2) rotate(360deg);
+          color: rgb(var(--blue-light), 0.65);
+        }
+      }
+    }
+  }
+</style>
+
+<!-- <footer>
 	&copy; {today.getFullYear()} Your name here. All rights reserved.
 	<div class="social-links">
 		<a href="https://m.webtoo.ls/@astro" target="_blank">
@@ -59,4 +157,4 @@ const today = new Date();
 	.social-links a:hover {
 		color: rgb(var(--gray-dark));
 	}
-</style>
+</style> -->
