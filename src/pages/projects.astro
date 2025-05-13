@@ -6,19 +6,6 @@ import Tasks from "../components/sections/Tasks.astro";
 import Footer from "../components/Footer.astro";
 
 import Data from "../icons/Data.astro";
-import Github from "../icons/Github.astro";
-import Linkedin from "../icons/Linkedin.astro";
-import Bluesky from "../icons/Bluesky.astro";
-import Instagram from "../icons/Instagram.astro";
-import Threads from "../icons/Threads.astro";
-
-const SOCIAL_ICONS: Record<string, any> = {
-  Github,
-  Linkedin,
-  Bluesky,
-  Instagram,
-  Threads,
-};
 import { basics } from "../consts/landing.json";
 const { name, label, profiles } = basics;
 ---
@@ -32,13 +19,64 @@ const { name, label, profiles } = basics;
           <Data />
           Proyectos <span>|</span> Trabajos Recientes:
         </h2>
+        <p>
+          Tengo la inquietante necesidad de <strong>construir</strong> cosas. A veces
+          el trabajo fluye con facilidad, otras veces me cuestiono mis decisiones.
+          Nunca dejo de <strong>aprender</strong>. He aquí varias <strong
+            >recopilaciones</strong
+          > a lo largo de este camino.
+        </p>
       </header>
-      <footer>
-        
-      </footer>
     </article>
   </Section>
-  
   <Tasks />
   <Footer />
 </Layout>
+
+<style>
+  article {
+    font-family: var(--Inter);
+    color: rgb(var(--light), 0.85);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      & > p > strong {
+        font-family: var(--Inconsolata);
+        font-size: clamp(13px, 0.7755rem + 0.1852vw, 15px);
+        font-weight: 500;
+        color: rgb(var(--dark), 0.85);
+        background-color: rgb(var(--blue-light), 0.55);
+        text-shadow: 0 0 0.5rem rgb(var(--dark), 0.45);
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        padding-top: 0.125rem;
+        padding-bottom: 0.125rem;
+        border-radius: 4px;
+      }
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 700;
+        text-wrap: pretty;
+        letter-spacing: -0.05em;
+        font-size: clamp(1rem, 0.518vw + 0.879rem, 1.5rem);
+        span {
+          font-weight: 200;
+          color: rgb(var(--blue-light), 0.25);
+        }
+      }
+      p {
+        font-size: clamp(0.875rem, 0.838rem + 0.1852vw, 1rem);
+        font-weight: 300;
+        color: rgb(var(--light), 0.55);
+        line-height: 1.25;
+        text-wrap: pretty;
+      }
+    }
+  }
+</style>
