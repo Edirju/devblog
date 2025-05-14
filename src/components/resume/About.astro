@@ -1,0 +1,19 @@
+---
+import Section from "../Section.astro"
+import { basics } from "../../consts/cv.json"
+const { summary } = basics
+---
+<Section title="Sobre mi">
+  <p>{summary}</p>
+</Section>
+
+<style>
+  p {
+    font-size: 0.875rem;
+    font-family: var(--Inconsolata);
+    text-wrap: pretty;
+    line-height: 1.375;
+    letter-spacing: -0.025em;
+    color: rgb(var(--dark), 0.85);
+  }
+</style>

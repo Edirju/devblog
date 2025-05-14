@@ -1,0 +1,37 @@
+---
+import Section from "../Section.astro";
+import { skills } from "../../consts/cv.json";
+---
+
+<Section>
+  <ul>
+    {
+      skills.map(({ name }) => {
+        return (
+          <li>
+            <span>{name}</span>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Section>
+
+<style>
+  ul {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    li {
+      display: flex;
+      align-items: center;
+      gap: .25rem;
+      font-size: 0.75rem;
+      font-family: var(--Inconsolata);
+      background: rgb(var(--dark), 0.85);
+      color: rgb(var(--light), 0.85);
+      padding: .25rem .5rem;
+      border-radius: .375rem;
+    }
+  }
+</style>

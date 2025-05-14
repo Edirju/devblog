@@ -1,0 +1,186 @@
+---
+import Section from "../Section.astro";
+
+import { basics } from "../../consts/cv.json";
+const { name, label, image, location, profiles, phone, email, url } = basics;
+const { city, region } = location;
+
+import Github from "../../icons/Github.astro";
+import Linkedin from "../../icons/Linkedin.astro";
+import Bluesky from "../../icons/Bluesky.astro";
+import Instagram from "../../icons/Instagram.astro";
+import Threads from "../../icons/Threads.astro";
+import Mail from "../../icons/Mail.astro";
+import Phone from "../../icons/Phone.astro";
+import Globe from "../../icons/Globe.astro";
+import Location from "../../icons/Location.astro";
+
+const SOCIAL_ICONS: Record<string, any> = {
+  Github,
+  Linkedin,
+  Bluesky,
+  Instagram,
+  Threads,
+};
+
+const linkedInfo = profiles.find(({ network }) => network === "Linkedin");
+const linkedUrl = linkedInfo?.url;
+
+const printInfo = [email, phone, linkedUrl].filter(Boolean).join(" • ");
+---
+
+<Section>
+  <article>
+    <div class="info">
+      <h1>{name}</h1>
+      <h2>{label}</h2>
+      <span><Location /> {city}, {region}</span>
+      <footer class="print">{printInfo}</footer>
+      <footer class="no-print">
+        {
+          url && (
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              title={`Visitar Web de ${name} en ${url}`}
+            >
+              <Globe />
+            </a>
+          )
+        }
+        {
+          email && (
+            <a
+              href={`mailto:${email}`}
+              title={`Enviar un correo electrónico a ${name} al correo ${email}`}
+              rel="noreferrer"
+            >
+              <Mail />
+            </a>
+          )
+        }
+        {
+          phone && (
+            <a
+              href={`tel:${phone}`}
+              title={`Llamar a ${name} al teléfono ${phone}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Phone />
+            </a>
+          )
+        }
+        {
+          profiles.map(({ network, url }) => {
+            const Icon = SOCIAL_ICONS[network];
+            if (!Icon) return null;
+            return (
+              <a
+                href={url}
+                title={`Visitar perfil de ${name} en ${network}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Icon />
+              </a>
+            );
+          })
+        }
+      </footer>
+    </div>
+    <figure class="image">
+      <img src={image} alt={name} loading="lazy" />
+    </figure>
+  </article>
+</Section>
+
+<style>
+  article {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    @media (width <= 700px) {
+      flex-direction: column-reverse;
+    }
+    .info {
+      display: flex;
+      flex-direction: column;
+      h1 {
+        font-family: var(--Inter);
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: -0.05em;
+      }
+      h2 {
+        font-family: var(--AtkinsonI);
+        font-weight: 400;
+        font-size: 0.875rem;
+        text-wrap: balance;
+        color: rgb(var(--dark), 0.85);
+      }
+      span {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 0.75rem;
+        color: rgb(var(--dark), 0.45);
+        font-family: var(--Inconsolata);
+        letter-spacing: -0.025em;
+      }
+      footer {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+        font-size: 0.65rem;
+        color: rgb(var(--dark), 0.85);
+        a {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: rgb(var(--dark), 0.65);
+          border: 1px solid rgb(var(--dark), 0.15);
+          border-radius: 6px;
+          width: 2rem;
+          height: 2rem;
+          padding: 2px;
+          transition: all 0.2s ease-in-out;
+          &:hover {
+            background: rgb(var(--dark), 0.05);
+            border: 1px solid rgb(var(--dark), 0.05);
+          }
+        }
+      }
+      @media (width <= 700px) {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding-right: 0;
+        h2 {
+          text-wrap: balance;
+          line-height: 1.25;
+        }
+      }
+    }
+    figure {
+      img {
+        width: 65%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 6px;        
+      }
+      @media (width <= 700px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        img {
+          width: 10rem;
+        }
+      }
+    }
+  }
+</style>

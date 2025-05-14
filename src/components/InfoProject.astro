@@ -13,11 +13,32 @@ const { isDark = false } = theme;
       class="flex items-center gap-2 text-xs hover:scale-110 transition duration-200 ease"
     >
       <div class="flex flex-col text-center leading-none">
-        <span> Ver+ </span>
-        <span> Proyecto </span>
+        <span
+          class:list={[
+            "text-4xl tracking-tighter px-1 inline-block bg-clip-text text-transparent bg-gradient-to-r",
+            {
+              "from-[rgb(var(--pink))] to-[rgb(var(--blue-light))]": !isDark,
+              "from-[rgb(var(--yellow-light))] to-[rgb(var(--blue-light))]":
+                isDark,
+            },
+          ]}
+        >
+          Ver+
+        </span>
+
+        <span
+          class:list={[
+            isDark
+              ? "text-[rgb(var(--yellow-light))]"
+              : "text-[rgb(var(--blue-dark))]",
+            "tracking-tighter text-sm text-[rgb(var(--dark),0.85)] -mt-2",
+          ]}
+        >
+          Proyecto
+        </span>
       </div>
 
-      <span>
+      <span class="rotate-6 text-[rgb(var(--blue-light),0.85)]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -30,8 +51,45 @@ const { isDark = false } = theme;
       </span>
     </a>
   </h1>
-  <h2>
-    # {info.number}<span>•</span>{info.title}
+
+  <h2
+    class:list={[
+      isDark ? "text-[rgb(var(--blue-light))]" : "text-[rgb(var(--blue-dark))]",
+      "text-sm uppercase font-light tracking-tighter",
+    ]}
+  >
+    # {info.number}<span> • </span>{info.title}
   </h2>
-  <a href="/projects"> ← Regresar a Proyectos. </a>
+
+  <a
+    href="/projects"
+    class:list={[
+      "text-xs font-mono tracking-tight hover:underline hover:underline-offset-2 animate-fade-in animate-delay-800",
+      isDark ? "text-[rgb(var(--light))]" : "text-[rgb(var(--blue-dark))]",
+    ]}
+  >
+    ← Regresar a Proyectos.
+  </a>
 </div>
+
+<style>
+  h2 {
+    font-size: clamp(1rem, 0.963rem + 0.1852vw, 1.125rem);
+    margin: 0;
+    padding: 0;
+  }
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-in both;
+  }
+  .animate-delay-800 {
+    animation-delay: 800ms;
+  }
+</style>
