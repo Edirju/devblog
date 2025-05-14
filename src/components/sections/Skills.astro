@@ -656,16 +656,14 @@ import Cog from "../../icons/Cog.astro";
       flex-direction: column;
       gap: 0.5rem;
       & > p > strong {
-        font-family: var(--Inconsolata);
+        font-family: var(--AtkinsonI);
         font-size: clamp(13px, 0.7755rem + 0.1852vw, 15px);
         font-weight: 500;
         color: rgb(var(--dark), 0.85);
-        background-color: rgb(var(--blue-light), 0.55);
+        background-color: rgb(var(--blue-light), 0.65);
         text-shadow: 0 0 0.5rem rgb(var(--dark), 0.45);
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-        padding-top: 0.125rem;
-        padding-bottom: 0.125rem;
+        padding-inline: 0.5rem;
+        padding-block: 0.125rem;
         border-radius: 4px;
       }
       h2 {
@@ -675,15 +673,15 @@ import Cog from "../../icons/Cog.astro";
         font-weight: 700;
         text-wrap: pretty;
         letter-spacing: -0.05em;
-        font-size: clamp(1rem, 0.518vw + 0.879rem, 1.5rem);
+        font-size: clamp(1.125rem, 1.0909rem + 0.1818vw, 1.25rem);
         span {
           font-weight: 200;
           color: rgb(var(--blue-light), 0.25);
         }
       }
       p {
-        font-size: clamp(0.875rem, 0.838rem + 0.1852vw, 1rem);
-        font-weight: 300;
+        font-size: clamp(14px, 0.838rem + 0.1852vw, 1rem);
+        font-weight: 200;
         color: rgb(var(--light), 0.55);
         line-height: 1.25;
         text-wrap: pretty;
@@ -725,21 +723,21 @@ import Cog from "../../icons/Cog.astro";
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        background-color: rgb(var(--blue-light),0.03);
+        background-color: rgb(var(--dark),0.85);
         border-radius: 0.5rem;
         padding: 0.5rem 0.625rem;        
       }
     }
     .company,
     .price {
-      font-weight: 300;
+      font-weight: 500;
     }
     .price {
       margin-inline: 4px;
     }
     .plus,
     .plus::before {
-      color: rgb(var(--pink), 0.75);
+      color: rgb(var(--pink), 0.65);
       transition-property: color, background-color, border-color,
         text-decoration-color, fill, stroke, opacity, box-shadow, transform,
         filter, backdrop-filter;
@@ -752,7 +750,7 @@ import Cog from "../../icons/Cog.astro";
     }
     .minus,
     .minus::before {
-      color: rgb(var(--yellow-light), 0.75);
+      color: rgb(var(--yellow-light), 0.65);
       transition-property: color, background-color, border-color,
         text-decoration-color, fill, stroke, opacity, box-shadow, transform,
         filter, backdrop-filter;
