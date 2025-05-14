@@ -117,7 +117,7 @@ const printInfo = [
     display: flex;
     flex-direction: row;
     place-items: center;
-    gap: 1rem;
+    gap: .5rem;
     @media (width <= 700px) {
       flex-direction: column-reverse;
     }
@@ -132,10 +132,10 @@ const printInfo = [
         padding-right: 0;
       }
       h1 {
-        font-size: clamp(1.125rem, 0.7917rem + 1.6667vw, 2.25rem);
-        font-weight: 700;
+        font-size: clamp(1.125rem, 0.8864rem + 1.2727vw, 2rem);
+        font-weight: 700;        
         letter-spacing: -0.05em;
-        line-height: 1.25;
+        line-height: 1.2;
         text-shadow: 0 0 0.5rem rgb(var(--light), 0.25);
         background-clip: text;
         color: transparent;
@@ -208,11 +208,11 @@ const printInfo = [
     figure {
       aspect-ratio: 1 / 1;
       object-fit: cover;
-      width: 60%;      
+      width: 55%;      
       position: relative;
       border-radius: 50%;
-      outline: 10px solid rgb(var(--dark),0.55);
-      outline-offset: -12px;
+      outline: 5px solid rgb(var(--dark),0.55);
+      outline-offset: -5px;
       @media (width <= 700px) {
         display: flex;
         align-items: center;
@@ -234,7 +234,7 @@ const printInfo = [
       position: absolute;
       z-index: -1;
       content: "";
-      inset: -16px;
+      inset: -12px;
       border-radius: inherit;
       background-image: conic-gradient(rgb(var(--blue-light)), rgb(var(--pink)), rgb(var(--blue-light)));
       animation: rotate 3s linear infinite;
