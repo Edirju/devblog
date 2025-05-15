@@ -11,7 +11,7 @@ const finalProjects = PROJECTS.filter((project) => !project.hidden)
     class="grid gap-4 mb-0 lg:mb-16 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto"
   >
     <article
-      class=" relative text-[rgb(var(--light))] min-h-60 items-center rounded-lg bg-[rgb(var(--dark),0.85)] border border-[rgb(var(--blue-light),0.15)]"
+      class="gradiente-1 relative text-[rgb(var(--light))] min-h-60 items-center rounded-lg bg-[rgb(var(--dark),0.85)] " 
     >
       <a
         href="#"
@@ -39,7 +39,7 @@ const finalProjects = PROJECTS.filter((project) => !project.hidden)
         const num = `${index + 1}`.padStart(2, "0");
 
         return (
-          <article class=" relative items-center rounded-lg border-2 border-[rgb(var(--blue-light),0.15)] p-2 bg-[rgb(var(--dark))]">
+          <article class="gradiente-2 relative items-center rounded-lg border-2 border-[rgb(var(--blue-light),0.15)] p-2 bg-[rgb(var(--dark))]">
             <a
               href={`/${project.slug}`}
               class="group hover:scale-105 block transition"
@@ -69,7 +69,7 @@ const finalProjects = PROJECTS.filter((project) => !project.hidden)
                 {/* --- Tags --- */}
                 <ul class="inline-flex flex-wrap gap-2 mb-2">
                   {project.learnings.map((learning) => (
-                    <li class="text-[rgb(var(--yellow-light),0.65)] text-[10px] bg-[rgb(var(--blue-light),0.16)] font-mono font-light tracking-tight rounded-full px-1.5">
+                    <li class="text-[rgb(var(--blue-light),0.65)] text-[10px] bg-[rgb(var(--dark),0.55)] font-mono font-light tracking-tight rounded-full px-1.5">
                       {learning}
                     </li>
                   ))}
@@ -121,7 +121,37 @@ const finalProjects = PROJECTS.filter((project) => !project.hidden)
 </Section>
 
 <style>
-  /* .tarjetas {
+  .gradiente-1 {
+    background: linear-gradient(rgb(var(--dark)), rgb(var(--dark),0.85)) padding-box, linear-gradient(120deg, rgb(var(--blue-light)),rgb(var(--pink)),rgb(var(--yellow-light))) border-box;
+    border-radius: 1rem;
+    border: 3px solid transparent;
+    /* border-width: 4px;
+    border-style: solid;
+    border-image: linear-gradient(to right, rgb(var(--blue-light),0.85), rgb(var(--pink),0.85),rgb(var(--yellow-light),0.85)) 1; */
+  }
+  .gradiente-2 {
+    background: linear-gradient(rgb(var(--dark)),rgb(var(--blue-dark),0.65)) padding-box,
+                linear-gradient(to right, rgb(var(--blue-light)),rgb(var(--blue-dark))) border-box;
+    border-radius: 1rem;
+    border: 3px solid transparent;
+    position: relative;
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      inset: 0px;
+      border-radius: inherit;
+      background-image: conic-gradient(rgb(var(--blue-light)),rgb(var(--pink)), rgb(var(--blue-light)));
+      z-index: -1;
+      opacity: 0;
+    }
+    &:hover::after {
+      filter: blur(1rem);
+      opacity: 0.25;
+    }
+  }
+  /* 
+  border border-[rgb(var(--blue-light),0.15)]
+  .tarjetas {
     background: rgb(var(--dark));
     border-radius: 1rem;
     position: relative;

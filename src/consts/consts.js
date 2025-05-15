@@ -55,6 +55,17 @@ export const PROJECTS = [
     youtube: "https://www.youtube.com/watch?v=157qVlTelOg",
   },
   // {
+  //     slug: "06-pruebas",
+  //     title: "Pruebas CSS + JS",
+  //     description:
+  //       "Aplicación clásica para dibujar píxeles con un color y un tamaño",
+  //     learnings: ["Dibujar en Canvas", "Function", "Eventos de teclado", "Touch"],
+  //     theme: {
+  //     isDark: true,
+  //   },
+  //     youtube: "https://www.youtube.com/watch?v=b6du6MvQmuQ",
+  //   },
+  // {
   //   slug: "06-pixel-art-generator",
   //   title: "Pixel Art Generator",
   //   description:
