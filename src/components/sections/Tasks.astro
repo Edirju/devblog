@@ -44,7 +44,7 @@ const finalProjects = PROJECTS.filter((project) => !project.hidden)
               href={`/${project.slug}`}
               class="group hover:scale-105 block transition"
             >
-              <span class="group-hover:scale-[2] transition-all group-hover:top-4 group-hover:left-6 opacity-70 group-hover:opacity-100 absolute top-4 left-4 -rotate-12 text-2xl font-bold font-mono text-[rgb(var(--yellow-light),0.85)] z-10">
+              <span class="group-hover:scale-[2] transition-all group-hover:top-4 group-hover:left-6 opacity-75 group-hover:opacity-100 absolute top-4 left-4 -rotate-12 text-2xl font-bold font-mono text-[rgb(var(--light),0.85)] z-10">
                 #{num}
               </span>
 
@@ -58,7 +58,7 @@ const finalProjects = PROJECTS.filter((project) => !project.hidden)
                 <h2 class="text-[rgb(var(--light),0.65)] text-pretty">
                   <a
                     href={`/${project.slug}`}
-                    class="text-[18px] font-medium tracking-tighter hover:text-[rgb(var(--blue-light),0.85)] hover:underline hover:underline-offset-2 transition-all duration-300 ease-in-out titles"
+                    class="text-[18px] font-medium tracking-tighter hover:text-[rgb(var(--blue-light),0.85)] hover:underline hover:underline-offset-2 transition-all duration-300 ease-in-out titles font-(family-name:--AtkinsonI)"
                   >
                     {project.title}
                   </a>
@@ -131,7 +131,7 @@ const finalProjects = PROJECTS.filter((project) => !project.hidden)
   }
   .gradiente-2 {
     background: linear-gradient(rgb(var(--dark)),rgb(var(--blue-dark),0.65)) padding-box,
-                linear-gradient(to right, rgb(var(--blue-light)),rgb(var(--blue-dark))) border-box;
+                linear-gradient(120deg, rgb(var(--blue-light),0.85), rgb(var(--pink),0.65)) border-box;
     border-radius: 1rem;
     border: 3px solid transparent;
     position: relative;

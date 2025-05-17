@@ -83,11 +83,12 @@ const posts = (await getCollection("blog")).sort(
           align-items: flex-start;
           gap: 0.5rem;
           div {
-            border-left: 1px solid rgb(var(--pink), 0.25);
+            border-left: 1px solid rgb(var(--pink), 0.35);
             padding-left: 0.5rem;
             h3 {
               font-size: clamp(0.875rem, 0.838rem + 0.1852vw, 1rem);
-              font-weight: 500;
+              font-weight: 300;
+              text-transform: capitalize;
               padding: 0;
               margin: 0;
               position: relative;
