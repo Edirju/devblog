@@ -4,7 +4,6 @@ import Section from "../Section.astro";
 import { basics } from "../../consts/landing.json";
 const { name, label, image, location, profiles, phone, email } = basics;
 const { city, region } = location;
-
 import Github from "../../icons/Github.astro";
 import Linkedin from "../../icons/Linkedin.astro";
 import Bluesky from "../../icons/Bluesky.astro";
@@ -12,7 +11,6 @@ import Instagram from "../../icons/Instagram.astro";
 import Threads from "../../icons/Threads.astro";
 import Mail from "../../icons/Mail.astro";
 import Phone from "../../icons/Phone.astro";
-
 const SOCIAL_ICONS: Record<string, any> = {
   Github,
   Linkedin,
@@ -20,7 +18,6 @@ const SOCIAL_ICONS: Record<string, any> = {
   Instagram,
   Threads,
 };
-
 const linkedInfo = profiles.find(({ network }) => network === "Linkedin");
 const linkedUrl = linkedInfo?.url;
 const blueskyInfo = profiles.find(({ network }) => network === "Bluesky");
@@ -31,7 +28,6 @@ const instagramInfo = profiles.find(({ network }) => network === "Instagram");
 const instagramUrl = instagramInfo?.url;
 const threadsInfo = profiles.find(({ network }) => network === "Threads");
 const threadsUrl = threadsInfo?.url;
-
 const printInfo = [
   email,
   phone,
@@ -44,7 +40,6 @@ const printInfo = [
   .filter(Boolean)
   .join(" • ");
 ---
-
 <Section>
   <article>
     <header>

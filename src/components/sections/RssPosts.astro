@@ -1,19 +1,14 @@
 ---
 import Section from "../Section.astro";
-
 import Rss from "../../icons/Rss.astro";
 import Spreadsheet from "../../icons/Spreadsheet.astro";
-import Detail from "../../icons/Detail.astro";
-
 import { posteos } from "../../consts/social-rss.json";
 import FormattedDate from "../FormattedDate.astro";
-
 import { getCollection } from "astro:content";
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
-
 <Section>
   <article>
     <header>
