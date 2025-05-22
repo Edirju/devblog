@@ -6,81 +6,87 @@ import Data from '../icons/Data.astro';
 import News from '../icons/News.astro';
 import User from '../icons/User.astro';
 ---
-<Section>
+<section>
 	<header>
 		<a href="/" class="logo">
-			<Logo />
-			<h2>dirju.</h2>
+			<!-- <Logo /> -->
+			<h2>SinVisaje</h2>
 		</a>
 		<nav>
 			<HeaderLink href="/blog">
 				<News />
-				Blog
+				<!-- Blog -->
 			</HeaderLink>
 			<HeaderLink href="/projects">
 				<Data />
-				Proyectos
+				<!-- Proyectos -->
 			</HeaderLink>
 			<HeaderLink href="/resume">
 				<User />
-				Resume
-			</HeaderLink>			
+				<!-- Resume -->
+			</HeaderLink>
 		</nav>
 	</header>
-</Section>
+</section>
 
 <style>
-	header {				
-		display: flex;
-		flex-direction: column;
-		flex-wrap: wrap;
-		align-items: center;
-		margin-inline: auto;
-		padding-block: 1rem;
-		color: rgb(var(--light),0.85);
-		border-bottom: 1px solid rgb(var(--light),0.15);
-		font-family: var(--Inter);
-		@media (width >= 768px) {
-    	flex-direction: row;  	
-			border-bottom: 0;
-		}
-		.logo {
+	section {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		background: rgb(var(--dark), 0.2);
+		backdrop-filter: blur(25px);
+		box-shadow: 0 4px 8px rgb(var(--black), 15%);
+		header {
+			margin: 0 auto 72px;
+			max-width: 700px;
+			padding-block: 16px;
+			padding-inline: 0rem;
 			display: flex;
-			align-items: center;			
-			margin-bottom: .5rem;
-			transition: all .3s ease-in-out;
-			@media (width >= 48rem /* 768px */) {
-    		margin-bottom: 0rem;
-  		}
-			&:hover {
-				color: rgb(var(--blue-light),0.85);
-				text-shadow: 0 0 0.5rem rgb(var(--blue-light), 0.25);
-			}
-			h2 {
-				font-weight: 900;
-				font-size: 24px;
-				letter-spacing: -0.05em;
-				margin-left: 0.25rem;
-				line-height: 1;
-				vertical-align: middle;
-			}
-		}
-		nav {
-			display: flex;
+			flex-direction: row;
 			flex-wrap: wrap;
 			align-items: center;
-			justify-content: center;
-			gap: .5rem;
-			font-size: 14px;
-			text-transform: uppercase;
-			font-weight: 300;
-			letter-spacing: -0.025em;
-			@media (width >= 768px) {
-				margin-right: auto;
-				margin-left: .5rem;
-				padding-block: .25rem;
-				padding-left: 1rem;
-				border-left: 1px solid rgb(var(--light),0.15);
+			justify-content: space-between;		
+			color: rgb(var(--light),0.85);
+			border-bottom: 0;
+			@media (width <= 700px) {
+				border-bottom: 1px solid rgb(var(--blue-light),0.35);		
+				padding-inline: 1rem;
+			}
+			.logo {
+				display: flex;
+				align-items: center;
+				transition: all .2s ease-in-out;
+				@media (width >= 48rem /* 768px */) {
+					margin-bottom: 0rem;
+				}
+				&:hover {
+					color: rgb(var(--blue-light),0.85);
+					text-shadow: 0 0 0.5rem rgb(var(--blue-light), 0.25);
+				}
+				h2 {
+					font-size: 1.5rem;
+					font-weight: 700;
+					letter-spacing: -0.05em;
+					margin-left: 0.25rem;				
+				}
+			}
+			nav {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: center;
+				gap: .5rem;
+				font-size: .875rem;
+				text-transform: uppercase;
+				font-weight: 300;
+				letter-spacing: -0.025em;
+				@media (width >= 700px) {
+					margin-right: auto;
+					margin-left: 1rem;				
+					padding-left: 1rem;
+					border-left: 1px solid rgb(var(--blue-light),0.35);
+				}
 			}
 		}
 	}

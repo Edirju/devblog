@@ -42,7 +42,7 @@
 	font-display: swap;
 }
 body {
-	font-family: 'Atkinson', sans-serif;
+	font-family: var(--Inter);
 	margin: 0;
 	padding: 0;
 	text-align: left;
@@ -66,9 +66,9 @@ h3,
 h4,
 h5,
 h6 {
-	margin: 0 0 0.5rem 0;
+	margin: 0 0 0 0;
 	/* color: rgb(var(--black)); */
-	line-height: 1.2;
+	/* line-height: 1.2; */
 }
 h1 {
 	font-size: 3.052em;
@@ -89,12 +89,12 @@ strong,
 b {
 	font-weight: 700;
 }
-/* a {
-	color: var(--accent);
+a {
+	color: rgb(var(--light));
 }
 a:hover {
-	color: var(--accent);
-} */
+	color: rgb(var(--blue-light));
+} 
 p {
 	margin: 0 0 1rem 0;
 }
