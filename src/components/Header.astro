@@ -6,69 +6,61 @@ import Data from '../icons/Data.astro';
 import News from '../icons/News.astro';
 import User from '../icons/User.astro';
 ---
-<section>
-	<header>
+<header>
+	<section>
 		<a href="/" class="logo">
 			<!-- <Logo /> -->
 			<h2>SinVisaje</h2>
 		</a>
 		<nav>
-			<HeaderLink href="/blog">
-				<News />
-				<!-- Blog -->
-			</HeaderLink>
-			<HeaderLink href="/projects">
-				<Data />
-				<!-- Proyectos -->
-			</HeaderLink>
-			<HeaderLink href="/resume">
-				<User />
-				<!-- Resume -->
-			</HeaderLink>
+			<HeaderLink href="/blog"><News /><span>Blog</span></HeaderLink>
+			<HeaderLink href="/projects"><Data /><span>Proyectos</span></HeaderLink>
+			<HeaderLink href="/resume"><User /><span>Resume</span></HeaderLink>
 		</nav>
-	</header>
-</section>
+	</section>
+</header>
 
 <style>
-	section {
+	header {
 		position: sticky;
 		top: 0;
 		z-index: 50;
-		background: rgb(var(--dark), 0.2);
-		backdrop-filter: blur(25px);
-		box-shadow: 0 4px 8px rgb(var(--black), 15%);
-		header {
-			margin: 0 auto 72px;
-			max-width: 700px;
-			padding-block: 16px;
+		background: rgb(var(--black), 0.2);
+		backdrop-filter: blur(25px) saturate(100%);
+		box-shadow: 0 .25rem .5rem rgb(var(--black), 15%);
+		section {
+			color: rgb(var(--primary),0.85);
+			margin: 0 auto 4.5rem;
+			max-width: 43.75rem;
+			padding-block: 1rem;
 			padding-inline: 0rem;
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap;
 			align-items: center;
 			justify-content: space-between;		
-			color: rgb(var(--light),0.85);
 			border-bottom: 0;
 			@media (width <= 700px) {
-				border-bottom: 1px solid rgb(var(--blue-light),0.35);		
-				padding-inline: 1rem;
+				border-bottom: 1px solid rgb(var(--primary),0.35);		
+				padding: 1rem;
+				margin-bottom: 2.375rem;
 			}
 			.logo {
 				display: flex;
 				align-items: center;
-				transition: all .2s ease-in-out;
-				@media (width >= 48rem /* 768px */) {
+				transition: all .3s ease-in-out;
+				@media (width >= 43.75rem /* 700px */) {
 					margin-bottom: 0rem;
 				}
 				&:hover {
-					color: rgb(var(--blue-light),0.85);
-					text-shadow: 0 0 0.5rem rgb(var(--blue-light), 0.25);
+					color: rgb(var(--light),0.85);
+					text-shadow: 0 0 0.5rem rgb(var(--primary), 0.55);
 				}
 				h2 {
 					font-size: 1.5rem;
 					font-weight: 700;
 					letter-spacing: -0.05em;
-					margin-left: 0.25rem;				
+					margin-left: .25rem;				
 				}
 			}
 			nav {
@@ -77,15 +69,21 @@ import User from '../icons/User.astro';
 				align-items: center;
 				justify-content: center;
 				gap: .5rem;
-				font-size: .875rem;
-				text-transform: uppercase;
-				font-weight: 300;
-				letter-spacing: -0.025em;
+				span {
+					font-size: .875rem;
+					font-weight: 300;
+					letter-spacing: -0.025em;					
+					text-transform: uppercase;
+					display: none;
+				}
 				@media (width >= 700px) {
 					margin-right: auto;
 					margin-left: 1rem;				
 					padding-left: 1rem;
-					border-left: 1px solid rgb(var(--blue-light),0.35);
+					border-left: 1px solid rgb(var(--primary),0.35);
+					span {
+						display: block;
+					}
 				}
 			}
 		}

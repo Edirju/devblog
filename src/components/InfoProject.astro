@@ -17,8 +17,8 @@ const { isDark = false } = theme;
           class:list={[
             "text-4xl tracking-tighter px-1 inline-block bg-clip-text text-transparent bg-gradient-to-r",
             {
-              "from-[rgb(var(--pink))] to-[rgb(var(--blue-light))]": !isDark,
-              "from-[rgb(var(--yellow-light))] to-[rgb(var(--blue-light))]":
+              "from-[rgb(var(--accent))] to-[rgb(var(--primary))]": !isDark,
+              "from-[rgb(var(--light))] to-[rgb(var(--primary))]":
                 isDark,
             },
           ]}
@@ -29,16 +29,16 @@ const { isDark = false } = theme;
         <span
           class:list={[
             isDark
-              ? "text-[rgb(var(--yellow-light))]"
-              : "text-[rgb(var(--blue-dark))]",
-            "tracking-tighter text-sm text-[rgb(var(--blue-light),0.85)] -mt-2",
+              ? "text-[rgb(var(--light))]"
+              : "text-[rgb(var(--primary))]",
+            "tracking-tighter text-sm text-[rgb(var(--accent),0.85)] -mt-2",
           ]}
         >
           Proyecto
         </span>
       </div>
 
-      <span class="rotate-6 text-[rgb(var(--blue-light),0.85)]">
+      <span class="rotate-6 text-[rgb(var(--primary),0.85)]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -54,7 +54,7 @@ const { isDark = false } = theme;
 
   <h2
     class:list={[
-      isDark ? "text-[rgb(var(--blue-light))]" : "text-[rgb(var(--blue-dark))]",
+      isDark ? "text-[rgb(var(--light))]" : "text-[rgb(var(--primary))]",
       "text-sm uppercase font-light tracking-tighter",
     ]}
   >
@@ -65,7 +65,7 @@ const { isDark = false } = theme;
     href="/projects"
     class:list={[
       "text-xs font-mono tracking-tight hover:underline hover:underline-offset-2 animate-fade-in animate-delay-800",
-      isDark ? "text-[rgb(var(--light))]" : "text-[rgb(var(--blue-dark))]",
+      isDark ? "text-[rgb(var(--light))]" : "text-[rgb(var(--primary))]",
     ]}
   >
     ← Regresar a Proyectos.

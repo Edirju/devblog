@@ -40,23 +40,241 @@ const printInfo = [
   .filter(Boolean)
   .join(" • ");
 ---
+
 <Section>
   <article>
     <header>
-      <h1>Desarrollo Web <span>|</span> Gestión Social Media.</h1>
+      <h1>
+        desarrollo web <span>|</span> tecnología <span>|</span> social media + opinión.
+      </h1>
       <h2>
         <p>
-          Hola! Soy <span>Edinson</span>. Escribo sobre cualquier cosa
-          relacionada con <strong> desarrollo web</strong>, <strong
-            >tecnología</strong
-          >, <strong> marketing digital</strong> y de vez en cuando sobre cosas interesantes
-          que cruzan en mí camino.
+          Exploro <strong>desarrollo web</strong>, tecnología y <strong
+            >marketing digital</strong
+          >. Comparto mis <strong>opiniones</strong> y trabajos.
         </p>
       </h2>
       <footer class="print">
         {printInfo}
       </footer>
       <footer class="no-print">
+        <h3>Sígueme:</h3>
+        <div class="social-links">
+          {
+            email && (
+              <a
+                href={`mailto:${email}`}
+                title={`Enviar un correo electrónico a ${name} al correo ${email}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Mail />
+              </a>
+            )
+          }
+          {
+            profiles.map(({ network, url }) => {
+              const Icon = SOCIAL_ICONS[network];
+              if (!Icon) return null;
+              return (
+                <a
+                  href={url}
+                  title={`Visitar ${name} en ${network}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Icon />
+                </a>
+              );
+            })
+          }
+        </div>
+      </footer>
+    </header>
+    <figure class="circle">
+      <img src={image} alt={name} loading="lazy" />
+    </figure>
+  </article>
+</Section>
+
+<style>
+  article {       
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    @media (width <= 700px) {
+      flex-direction: column-reverse;
+    }
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      @media (width <= 700px) {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding-right: 0;
+      }
+      h1 {
+        font-size: clamp(1.5rem, 1.2037rem + 1.4815vw, 2.5rem);
+        font-weight: 500;
+        text-transform: capitalize;
+        letter-spacing: -0.05em;
+        line-height: 1.1;
+        text-shadow: 0 0 0.5rem rgb(var(--light), 0.2);
+        background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(
+          to right,
+          rgb(var(--primary)),
+          rgb(var(--accent)),
+          rgb(var(--yellow-light),0.45),
+          rgb(var(--light),0.65),
+          rgb(var(--primary))
+        );
+        background-size: var(--bg-size);
+        --bg-size: 200%;
+        animation: animate 2s steps(5) infinite;
+        animation: animate 2s linear infinite;
+        animation: animate 2s ease infinite;
+        span {
+          font-weight: 200;          
+        }
+      }
+      h2 {
+        color: rgb(var(--light), 0.65);        
+        font-size: clamp(1.125rem, 1.0139rem + 0.5556vw, 1.5rem);
+        font-weight: 300;
+        text-wrap: pretty;
+        letter-spacing: -0.025em;
+        text-transform: capitalize;
+        line-height: 1.2;
+        & > p > strong {
+          color: rgb(var(--primary), 0.65);
+          font-weight: 400;
+          letter-spacing: -0.05em;
+          text-shadow: 0 0 0.5rem rgb(var(--accent), 0.45);
+        }
+      }
+      footer {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: rgb(var(--light), 0.45);
+        h3 {
+          font-family: var(--mono);
+          font-size: clamp(0.875rem, 0.838rem + 0.1852vw, 1rem);
+          font-weight: 200;
+          text-transform: capitalize;
+          letter-spacing: -0.05em;
+          text-shadow: 0 0 0.5rem rgb(var(--light), 0.45);
+        }
+        .social-links {
+          display: flex;
+          justify-content: center;
+          gap: 0.5rem;
+          a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: rgb(var(--light), 0.08);
+            border: 1px solid rgb(var(--light), 0.15);
+            transition: all 0.3s ease-in-out;
+            &:hover {
+              background-color: rgb(var(--accent), 0.25);
+              color: rgb(var(--primary), 0.85);
+              border: 1px solid rgb(var(--primary), 0.15);
+            }
+          }
+        }
+      }
+    }
+    figure {
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      width: 40%;
+      position: relative;
+      border-radius: 50%;
+      outline: 5px solid rgb(var(--dark), 0.55);
+      outline-offset: -5px;
+      @media (width <= 700px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+        width: 50%;
+      }
+      img {
+        display: block;
+        width: 100%;
+        opacity:0.85;
+        aspect-ratio: 1;
+        object-fit: cover;
+        object-position: top;
+        border-radius: inherit;
+      }
+    }
+    figure::before,
+    figure::after {
+      position: absolute;
+      z-index: -1;
+      content: "";
+      inset: -12px;
+      border-radius: inherit;
+      background-image: conic-gradient(
+        rgb(var(--primary)),
+        rgb(var(--accent)),
+        rgb(var(--secondary)),
+        rgb(var(--primary))
+      );
+      animation: rotate 3s linear infinite;
+    }
+    figure::after {
+      filter: blur(2rem);
+      opacity: 0.7;
+    }
+    figure:hover::before,
+    figure:hover::after {
+      animation-play-state: paused;
+    }
+  }
+  /* @keyframes animate {
+    to {
+      background-position: var(--bg-size);
+    }
+  } */
+  /* @keyframes rotate {
+    from {
+      rotate: 0deg;
+    }
+    to {
+      rotate: 360deg;
+    }
+  } */
+</style>
+
+<!-- <Section>
+  <article>
+    <header>
+      <h1>
+        desarrollo web <span>|</span> tecnología <span>|</span> marketing digital
+        + opinión.
+      </h1>
+      <h2>
+        Exploro <strong>desarrollo web</strong>, tecnología y <strong
+          >marketing digital</strong
+        >. Comparto mis
+        <strong>opiniones</strong> y trabajos.
+      </h2>
+    </header>
+    <footer class="no-print">
+      <h3>Sígueme en:</h3>
+      <div class="social-links">
         {
           email && (
             <a
@@ -97,41 +315,28 @@ const printInfo = [
             );
           })
         }
-      </footer>
-    </header>
-    <figure class="circle">
-      <img src={image} alt={name} loading="lazy"/>
-    </figure>
+      </div>
+    </footer>
   </article>
-</Section>
+</Section> -->
 
-<style>
+<!-- <style>
   article {
-    font-family: var(--Inter);
     color: rgb(var(--light), 0.85);
     display: flex;
-    flex-direction: row;
-    place-items: center;
-    gap: .5rem;
-    @media (width <= 700px) {
-      flex-direction: column-reverse;
-    }
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem;
     header {
       display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      @media (width <= 700px) {
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding-right: 0;
-      }
+      flex-wrap: wrap;
+      gap: 1rem;
       h1 {
-        font-size: clamp(1.125rem, 0.8864rem + 1.2727vw, 2rem);
-        font-weight: 700;        
+        font-size: clamp(24px, 0.7593rem + 3.7037vw, 48px);
+        font-weight: 600;
         letter-spacing: -0.05em;
-        line-height: 1.2;
-        text-shadow: 0 0 0.5rem rgb(var(--light), 0.25);
+        line-height: 1.2;        
+        text-transform: capitalize;
         background-clip: text;
         color: transparent;
         background-image: linear-gradient(
@@ -148,47 +353,49 @@ const printInfo = [
         animation: animate 2s linear infinite;
         animation: animate 2s ease infinite;
         span {
-          font-weight: 300;
-          font-size: clamp(14px, 0.6898rem + 0.9259vw, 24px);
+          font-weight: 100;
+          opacity: 0.35;
         }
       }
       h2 {
-        color: rgb(var(--light), 0.5);
-        font-size: clamp(1rem, 0.963rem + 0.1852vw, 1.125rem);
-        font-weight: 200;
-        text-wrap: pretty;
+        font-size: clamp(18px, 1.0139rem + 0.5556vw, 24px);
+        font-weight: 300;
+        color: rgb(var(--light), 0.65);
+        text-transform: capitalize;
         letter-spacing: -0.025em;
-        & > p > strong {
-          color: rgb(var(--dark), 0.85);
-          background-color: rgb(var(--blue-light), 0.65);
-          text-shadow: 0 0 0.5rem rgb(var(--dark), 0.55);
-          font-size: clamp(13px, 0.7755rem + 0.1852vw, 15px);
-          font-weight: 400;
-          font-family: var(--AtkinsonI);
-          padding-inline: 0.5rem;
-          padding-block: 0.125rem;
-          border-radius: 0.25rem;
-          letter-spacing: -0.05rem;
-        }
-        p span {
-          font-weight: 700;
-          letter-spacing: 0em;
-          color: rgb(var(--light), 0.65);
-          text-shadow: 0 0 0.5rem rgb(var(--blue-light), 0.45);
+        line-height: 1.2;
+        & > strong {
+          color: rgb(var(--blue-light), 0.85);
+          font-weight: 500;
+          letter-spacing: -0.05em;
+          text-shadow: 0 0 0.5rem rgb(var(--light), 0.25);
         }
       }
-      footer {
+    }
+    footer {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      h3 {
+        font-family: var(--Inconsolata);
+        /* color:  rgb(var(--blue-light),0.65); */
+        font-size: clamp(0.875rem, 0.838rem + 0.1852vw, 1rem);
+        font-weight: 300;
+        text-transform: capitalize;
+        letter-spacing: -0.05em;
+        text-shadow: 0 0 0.5rem rgb(var(--light), 0.45);
+      }
+      .social-links {
         display: flex;
-        align-items: center;
-        gap: 1rem;
-        color: rgb(var(--light), 0.55);
+        justify-content: center;
+        gap: 0.5rem;
         a {
           display: inline-flex;
           align-items: center;
           justify-content: center;
           width: 2rem;
           height: 2rem;
-          border-radius: 0.375rem;
+          border-radius: 50%;
           background-color: rgb(var(--light), 0.08);
           border: 1px solid rgb(var(--light), 0.1);
           transition: all 0.3s ease-in-out;
@@ -200,47 +407,17 @@ const printInfo = [
         }
       }
     }
-    figure {
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      width: 55%;      
-      position: relative;
-      border-radius: 50%;
-      outline: 5px solid rgb(var(--dark),0.55);
-      outline-offset: -5px;
-      @media (width <= 700px) {
-        display: flex;
+    @media (width <= 700px) {
+      align-items: center;
+      header {
         align-items: center;
         justify-content: center;
-        margin: 0 auto 16px;
-        width: 50%;
+        text-align: center;
+        padding-right: 0;
+        h1 {
+          line-height: 1.35;
+        }
       }
-      img {
-        display: block;
-        width: 100%;
-        aspect-ratio: 1;
-        object-fit: cover;
-        object-position: top;
-        border-radius: inherit;
-      }
-    }
-    figure::before,
-    figure::after {
-      position: absolute;
-      z-index: -1;
-      content: "";
-      inset: -12px;
-      border-radius: inherit;
-      background-image: conic-gradient(rgb(var(--blue-light)), rgb(var(--pink)), rgb(var(--blue-light)));
-      animation: rotate 3s linear infinite;
-    }
-    figure::after {
-      filter: blur(2rem);
-      opacity: 0.7;
-    }
-    figure:hover::before,
-    figure:hover::after {
-      animation-play-state: paused;
     }
   }
   @keyframes animate {
@@ -248,12 +425,4 @@ const printInfo = [
       background-position: var(--bg-size);
     }
   }
-  @keyframes rotate {
-    from {
-      rotate: 0deg;
-    }
-    to {
-      rotate: 360deg;
-    }
-  }
-</style>
+</style> -->

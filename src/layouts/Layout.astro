@@ -16,10 +16,10 @@ const description = SITE_DESCRIPTION;
   <body>
     <main>
       <div
-        class="absolute inset-0 -z-10 h-full w-full bg-transparent bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:16px_16px]"
+        class="absolute inset-0 -z-10 h-full w-full bg-transparent bg-[linear-gradient(to_right,rgb(var(--light),0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgb(var(--light),0.01)_1px,transparent_1px)] bg-[size:16px_16px]"
       >
         <div
-          class="absolute left-0 right-0 top-0 -z-10 m-auto h-[300px] w-[300px] rounded-full bg-[rgb(var(--blue-light),0.45)] opacity-20 blur-[100px]"
+          class="absolute left-0 right-0 top-0 -z-10 m-auto h-[300px] w-[300px] rounded-full bg-[rgb(var(--accent),0.45)] opacity-40 blur-[100px]"
         >
         </div>
       </div>
@@ -31,19 +31,33 @@ const description = SITE_DESCRIPTION;
 <style>
   :root {
     --hdr-gradient: linear-gradient(
-      to top left in oklab,
-      oklch(0.19 0 0) 2% 2%,
-      oklch(0.26 0.0166 248.46) 93% 93%
+      to top left in oklch,
+      oklch(0.1824 0.0152 266.74) 0%,
+      oklch(0.2607 0.0166 248.46) 100%
     );
-    --sdr-gradient: linear-gradient(
-      to top left,
-      #141414 2% 2%,
-      #1e252c 93% 93%
-    );
+    --sdr-gradient: linear-gradient(to top left, #0f1219 0%, #1e252c 100%);
     background: var(--hdr-gradient);
+    /* BG Animation */
+    /* --color-1: oklch(0.2607 0.0166 248.46); */
+    /* --color-2: oklch(0.1824 0.0152 266.74); */
   }
-  main {
-    position: relative;
+  body {
     min-height: 100dvh;
+    /* BG Animation */
+    /* background: linear-gradient(-45deg, var(--color-1), var(--color-2)); */
+    /* background-size: 500% 500%; */
+    /* animation: bg 3s ease infinite; */
   }
+  /* 
+  @keyframes bg {
+    0% {
+      background-position: 0 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0 50%;
+    }
+  }   */
 </style>

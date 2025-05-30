@@ -6,11 +6,16 @@
  @import "tailwindcss";
 
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25; /* #0F1219 */
+	/* Colores */
+	--primary: 224, 127, 63; /*#E07F3F*/
+	--secondary: 13, 55, 69; /*#0D3745*/
+	--accent: 132, 52, 28; /*#84341C*/
 	--dark: 30, 37, 44; /* #1E252C */
+	--black: 15, 18, 25; /* #0F1219 */
 	--light: 255, 253, 248; /* #FFFDFA */
+	
+	--accent-light: #2337ff;
+	--accent-dark: #000d8a;
 	--blue-light: 0, 216, 255; /* #00D8FF */
 	--blue-dark: 0, 78, 146; /* #004A92 */
 	--pink: 255, 83, 182; /* #FF53B6 */
@@ -18,136 +23,99 @@
 	--gray: 96, 115, 159; /* #60739F */
 	--gray-light: 229, 233, 240; /* #E5E9F0 */
 	--gray-dark: 34, 41, 57; /* #222939 */
+	
+	/* Tipografía */
+	--body:'Inter Variable', sans-serif;
+	--mono: 'Inconsolata Variable', monospace;
+	--parrafo: 'Atkinson Hyperlegible Next Variable', sans-serif;
+
+	/* Shadows */
 	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
 	--box-shadow:
 		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
 		0 16px 32px rgba(var(--gray), 33%);
-	--Inconsolata: 'Inconsolata Variable', monospace;
-	--Inter: 'Inter Variable', sans-serif; 
-	--Atkinson: 'Atkinson Hyperlegible Next Variable', sans-serif;
-	--AtkinsonI: 'Atkinson', sans-serif;
 }
-@font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-regular.woff') format('woff');
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
+
+/* Reset CSS*/
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
 }
-@font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-bold.woff') format('woff');
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
-body {
-	font-family: var(--Inter);
+
+/* 2. Remove default margin */
+* {
 	margin: 0;
-	padding: 0;
-	text-align: left;
-	/* background: linear-gradient(var(--gray-gradient)) no-repeat; */
-	/* background-size: 100% 600px; */
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	/* font-size: 20px; */
-	/* line-height: 1.7; */
 }
-/* main {
-	width: 700px;
-	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 3em 1em;
-} */
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		interpolate-size: allow-keywords;
+	}
+}
+
+body {
+	/* 4. Add accessible line-height */
+	line-height: 1.5;
+	/* 5. Improve text rendering */
+	-webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p,
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-	margin: 0 0 0 0;
-	/* color: rgb(var(--black)); */
-	/* line-height: 1.2; */
+	overflow-wrap: break-word;
 }
-h1 {
-	font-size: 3.052em;
-}
-h2 {
-	font-size: 2.441em;
-}
-h3 {
-	font-size: 1.953em;
-}
-h4 {
-	font-size: 1.563em;
-}
-h5 {
-	font-size: 1.25em;
-}
-strong,
-b {
-	font-weight: 700;
-}
-a {
-	color: rgb(var(--light));
-}
-a:hover {
-	color: rgb(var(--blue-light));
-} 
+
+/* 9. Improve line wrapping */
 p {
-	margin: 0 0 1rem 0;
+	text-wrap: pretty;
 }
-.prose p {
-	margin-bottom: 1rem;	
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-wrap: balance;
 }
-textarea {
-	width: 100%;
-	font-size: 16px;
+
+/*
+  10. Create a root stacking context
+*/
+#root,
+#__next {
+	isolation: isolate;
 }
-input {
-	font-size: 16px;
-}
-table {
-	width: 100%;
-}
-img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 8px;
-}
-code {
-	padding: 2px 5px;
-	background-color: rgb(var(--blue-light),0.35);
-	border-radius: 2px;	
-}
-pre {
-	padding: 1.5em;
-	border-radius: 8px;
-}
-pre > code {
-	all: unset;
-}
-blockquote {
-	border-left: 4px solid rgb(var(--pink));
-	padding: 0 0 0 20px;
-	margin: 0px;
-	font-size: 1.333em;
-	font-family: var(--AtkinsonI);
-	letter-spacing: -0.025em;
-	line-height: 1.25;
-}
-hr {
-	border: none;
-	border-top: 1px solid rgb(var(--blue-light),0.45);
-}
-@media (max-width: 720px) {
-	body {
-		font-size: 16px;
-	}
-	main {
-		padding: 0em;
-	}
+/* CSS General */
+body {
+	font-family: var(--body);
 }
 
 .sr-only {
@@ -189,3 +157,113 @@ hr {
 		display: none !important;
 	}
 }
+/* body {
+	font-family: var(--font-body) 'Atkinson', sans-serif;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	text-wrap: pretty;
+	background: linear-gradient(var(--gray-gradient)) no-repeat;
+	background-size: 100% 600px;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	color: rgb(var(--dark));
+	font-size: 16px;
+	line-height: 1.25;
+} */
+
+/* main {
+	width: 704px;
+	max-width: calc(100% - 4px);
+	margin: auto;
+	padding: 3rem 1rem;
+} */
+/* h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;	
+	color: rgb(var(--dark));
+	line-height: 1.2;
+} */
+/* h1 {
+	font-size: 3.052em;
+	font-weight: 700;
+}
+h2 {
+	font-size: 2.441em;
+	font-weight: 600;
+}
+h3 {
+	font-size: 1.953em;
+	font-weight: 500;
+}
+h4 {
+	font-size: 1.563em;
+}
+h5 {
+	font-size: 1.25em;
+}
+strong,
+b {
+	font-weight: 700;
+}
+a {
+	color: rgb(var(--dark),0.85);
+}
+a:hover {
+	color: rgb(var(--accent-dark),0.85);
+}
+p {
+	margin-bottom: 1em;
+}
+.prose p {
+	margin-bottom: 2em;
+}
+textarea {
+	width: 100%;
+	font-size: 16px;
+}
+input {
+	font-size: 16px;
+}
+table {
+	width: 100%;
+}
+img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+code {
+	padding: 2px 5px;
+	background-color: rgb(var(--gray-light));
+	border-radius: 2px;
+}
+pre {
+	padding: 1.5em;
+	border-radius: 8px;
+}
+pre > code {
+	all: unset;
+}
+blockquote {
+	border-left: 4px solid var(--accent);
+	padding: 0 0 0 20px;
+	margin: 0px;
+	font-size: 1.333em;
+}
+hr {
+	border: none;
+	border-top: 1px solid rgb(var(--gray-light));
+}
+@media (max-width: 720px) {
+	body {
+		font-size: 18px;
+	}
+	main {
+		padding:0 0em 0;
+	}
+} */
