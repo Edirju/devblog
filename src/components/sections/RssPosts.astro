@@ -2,6 +2,21 @@
 import Section from "../Section.astro";
 import Rss from "../../icons/Rss.astro";
 import Spreadsheet from "../../icons/Spreadsheet.astro";
+import Github from "../../icons/Github.astro";
+import Linkedin from "../../icons/Linkedin.astro";
+import Bluesky from "../../icons/Bluesky.astro";
+import Instagram from "../../icons/Instagram.astro";
+import Threads from "../../icons/Threads.astro";
+import TwitterX from "../../icons/Twitter-x.astro";
+const SOCIAL_ICONS: Record<string, any> = {
+  Github,
+  Linkedin,
+  Bluesky,
+  Instagram,
+  Threads,
+  TwitterX,
+};
+
 import { posteos } from "../../consts/social-rss.json";
 import FormattedDate from "../FormattedDate.astro";
 import { getCollection } from "astro:content";
@@ -9,11 +24,12 @@ const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
+
 <Section>
   <article>
     <header>
       <h2>
-        <Spreadsheet />
+        <Rss />
         Blog <span>|</span> Social Media posts:
       </h2>
     </header>
@@ -21,16 +37,19 @@ const posts = (await getCollection("blog")).sort(
       <ul>
         {
           posteos.map(({ network, title, description, url, date }) => {
+            const Icon = SOCIAL_ICONS[network];
+            if (!Icon) return null;
+
             return (
               <li>
-                <a href={url}>
-                  <Rss />
+                <a href={url} title={`Click para leer más: ${title}`}>
                   <div>
-                    <h3>{title}</h3>
-                    <p>
-                      {date} <span>•</span> {network}
-                    </p>
+                    <Icon />
                   </div>
+                  <h3>{title}</h3>
+                  <p>
+                    <span>•</span> {date}
+                  </p>
                 </a>
               </li>
             );
@@ -69,57 +88,63 @@ const posts = (await getCollection("blog")).sort(
     footer {
       ul {
         display: flex;
-        flex-direction: column;        
+        flex-direction: column;
         gap: 0.5rem /* 4px */;
         color: rgb(var(--light), 0.65);
         li a {
           display: flex;
-          align-items: flex-start;
+          align-items: center;
           gap: 0.5rem;
           div {
-            border-left: 1px solid rgb(var(--primary), 0.35);
-            padding-left: 0.5rem;
-            h3 {
-              font-size: clamp(0.875rem, 0.838rem + 0.1852vw, 1rem);
-              font-weight: 300;
-              text-transform: capitalize;
-              padding: 0;
-              margin: 0;
-              position: relative;
-              transition: all 0.2s ease;
-              &::after {
-                content: "";
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 100%;
-                height: 1.5px;
-                background-color: rgb(var(--primary), 0.65);
-                transform: scaleX(0);
-                transition: 0.2s;
-                transform-origin: left;
-              }
-              &:hover {
-                color: rgb(var(--primary), 0.65);
-              }
-              &:hover::after {
-                transform: scaleX(1);
-              }
+            border: 1px solid rgb(var(--primary), 0.85);
+            padding: 0.5rem;
+            border-radius: 50%;
+            opacity: 0.65;
+          }
+          h3 {
+            font-size: clamp(0.875rem, 0.838rem + 0.1852vw, 1rem);
+            font-weight: 200;
+            letter-spacing: -0.025em;
+            text-transform: capitalize;
+            text-wrap: pretty;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            transition: all 0.2s ease;
+            &::after {
+              content: "";
+              position: absolute;
+              left: 0;
+              right: 0;
+              top: 100%;
+              height: 1px;
+              background-color: rgb(var(--primary), 0.65);
+              transform: scaleX(0);
+              transition: 0.2s;
+              transform-origin: left;
             }
-            p {
-              font-size: clamp(0.6875rem, 0.6505rem + 0.1852vw, 0.8125rem);
-              font-weight: 200;
-              font-family: var(--mono);
-              color: rgb(var(--primary), 0.85);
+            &:hover {
+              color: rgb(var(--primary), 0.75);
+            }
+            &:hover::after {
+              transform: scaleX(1);
+            }
+          }
+          p {
+            font-size: clamp(0.6875rem, 0.6505rem + 0.1852vw, 0.8125rem);
+            font-weight: 200;
+            font-family: var(--mono);
+            color: rgb(var(--primary), 0.85);
+            padding: 0;
+            margin: 0;
+            width: fit-content;
+            text-wrap: nowrap;            
+            span {
+              font-size: 16px;
+              font-weight: 700;
+              vertical-align: middle;
               padding: 0;
               margin: 0;
-              span {
-                font-size: 16px;
-                font-weight: 700;
-                vertical-align: middle;
-                padding: 0;
-                margin: 0;
-              }
             }
           }
         }

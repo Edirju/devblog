@@ -1,0 +1,251 @@
+---
+import Section from "../Section.astro";
+import Spreadsheet from "../../icons/Spreadsheet.astro";
+import Left from "../../icons/Left.astro";
+import Right from "../../icons/Right.astro";
+
+import FormattedDate from "../FormattedDate.astro";
+import { getCollection } from "astro:content";
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+// Opcional: Limitar número de posts a mostrar.
+const postsToShow = posts.slice(0, 5);
+// Si no hay: No renderizar o mostrar mensaje
+if (postsToShow.length === 0) {
+  return null;
+}
+---
+
+<Section>
+  <article class="blog-slider-container">
+    <header class="">
+      <h2 class="font-bold">
+        <Spreadsheet />
+        Blog <span class="">|</span> +recientes:
+      </h2>
+      <!-- <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+    </header>
+    <footer>
+      <div class="slider-wrapper" id="blogSliderWrapper">
+        {
+          postsToShow.map((post) => (
+            <div class="slide">
+              <a href={`/blog/${post.id}/`} class="slide-link">
+                <div class="slide-content flex flex-col gap-4 md:w-1/2">
+                  <div class="text-title flex items-center gap-4">
+                    <h3 class="slide-title font-medium text-xl text-pretty line-clamp-1 tracking-tighter text-[rgb(var(--light),0.55)] w-fit leading-tight" title={post.data.title}>
+                      {post.data.title}
+                    </h3>
+                    <time class="slide-date border border-[rgb(var(--primary),0.25)] rounded px-1 text-xs uppercase tracking-tighter text-[rgb(var(--light),0.35)] bg-[rgb(var(--accent),0.20)]">
+                      <FormattedDate date={post.data.pubDate} />
+                    </time>
+                  </div>
+                  <p class="font-extralight text-balance text-[rgb(var(--light),0.35)] tracking-wide leading-tight text-sm">
+                    {post.data.description}
+                  </p>
+                </div>
+                <figure class="md:w-1/2 aspect-auto object-cover">
+                  {post.data.heroImage && (
+                    <img
+                      src={post.data.heroImage}
+                      alt={post.data.title}
+                      class="slide-image rounded-xl object-top object-cover border-2 border-[rgb(var(--secondary),0.65)]"
+                      loading="lazy"
+                    />
+                  )}
+                </figure>
+              </a>
+            </div>
+          ))
+        }
+      </div>
+      <div class="slider-navigation">
+        <button aria-label="Previous slide" id="prevBtn" class="nav-button"
+          ><Left /></button
+        >
+        <button aria-label="Next slide" id="nextBtn" class="nav-button"
+          ><Right /></button
+        >
+      </div>
+    </footer>
+  </article>
+</Section>
+
+<style>
+  .blog-slider-container {
+    --hdr-gradient: linear-gradient(
+      to top left in oklab,
+      oklch(0.1288 0.0254 260.23) 0%,
+      oklch(0.2607 0.0166 248.46) 100%
+    );
+    --sdr-gradient: linear-gradient(to top left, #030711 0%, #1e252c 100%);
+    background: var(--hdr-gradient);
+    border: 1px solid rgb(var(--primary), 0.35);
+    box-shadow: 0 4px 30px rgb(var(--primary), 0.15);
+    font-family: var(--body);
+    color: rgb(var(--primary), 0.75);
+    /* background-color: rgb(var(--primary), 0.85); */
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;    
+    gap: 1rem;
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: clamp(1.125rem, 1.0909rem + 0.1818vw, 1.25rem);
+        /* font-weight: 700; */
+        text-transform: capitalize;
+        text-wrap: pretty;
+        letter-spacing: -0.05em;
+        span {
+          font-weight: 200;
+          opacity: 0.65;
+        }
+      }
+      p {
+        font-size: clamp(0.875rem, 0.838rem + 0.1852vw, 1rem);
+        font-weight: 300;
+        opacity: 0.65;
+        letter-spacing: -0.025em;
+      }
+    }
+    footer {
+      .slider-wrapper {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+      }
+      .slider-wrapper::-webkit-scrollbar {
+        /* WebKit */
+        display: none;
+      }
+      .slide {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+        box-sizing: border-box;
+        padding: 0 4px;
+        .slide-link {
+          display: flex;
+          flex-direction: row;
+          gap: 0.5rem;
+          @media (width <= 700px) {
+            flex-direction: column-reverse;
+          }
+        }
+      }
+      .slide-title {
+        text-shadow: 0 0 0.5rem rgb(var(--accent), 0.65);
+        position: relative;        
+        z-index: 1;
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: -2px;
+          right: -2px;
+          height: 0px;
+          background-color: rgb(var(--primary),0.85);
+          transition: .5s;
+          transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          z-index: -1;
+        }
+        &:hover {
+          color: rgb(var(--dark),0.85);
+          text-shadow: 0 0 0.5rem rgb(var(--secondary),0.45);
+        }
+        &:hover::after {
+          height: 107%;
+        }
+      }
+      .slide-date {
+        font-family: var(--mono);
+        text-wrap: nowrap;
+      }
+      .slider-navigation {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 2rem;
+        margin-top: 1rem;
+        /* padding: 0 1rem; */
+      }
+      .nav-button {
+        pointer-events: all;
+        /* background-color: rgb(var(--accent)); */
+        background:
+          linear-gradient(rgb(var(--dark)), rgb(var(--dark)))
+            padding-box,
+          linear-gradient(324deg, rgb(var(--primary)), rgb(var(--secondary)))
+            border-box;
+        color: rgb(var(--primary));
+        border: 2px solid transparent;
+        padding: 0.25rem;
+        border-radius: 50%;
+        cursor: pointer;
+        &:hover {
+          background-color: rgb(var(--accent), 0.5);
+          opacity: 0.75;
+        }
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sliderWrapper = document.getElementById(
+      "blogSliderWrapper"
+    ) as HTMLElement | null;
+    const prevBtn = document.getElementById(
+      "prevBtn"
+    ) as HTMLButtonElement | null;
+    const nextBtn = document.getElementById(
+      "nextBtn"
+    ) as HTMLButtonElement | null;
+
+    if (!sliderWrapper || !prevBtn || !nextBtn) {
+      console.warn("Slider elements not found.");
+      return;
+    }
+
+    const scrollAmount = () => {
+      return sliderWrapper.offsetWidth;
+    };
+
+    const updateButtonStates = () => {
+      if (!sliderWrapper || !prevBtn || !nextBtn) return;
+
+      const currentScroll = sliderWrapper.scrollLeft;
+      const maxScroll = sliderWrapper.scrollWidth - sliderWrapper.clientWidth;
+
+      prevBtn.disabled = currentScroll <= 0;
+      nextBtn.disabled = currentScroll >= maxScroll - 1;
+    };
+
+    prevBtn.addEventListener("click", () => {
+      sliderWrapper.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+    });
+    nextBtn.addEventListener("click", () => {
+      sliderWrapper.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+    });
+    sliderWrapper.addEventListener("scroll", updateButtonStates);
+    updateButtonStates();
+    let resizeTimeout: ReturnType<typeof setTimeout>;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(updateButtonStates, 100);
+    });
+  });
+</script>

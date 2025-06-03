@@ -1,0 +1,114 @@
+---
+import Section from "../Section.astro";
+import Rss from "../../icons/Rss.astro";
+import Github from "../../icons/Github.astro";
+import Linkedin from "../../icons/Linkedin.astro";
+import Bluesky from "../../icons/Bluesky.astro";
+import Instagram from "../../icons/Instagram.astro";
+import Threads from "../../icons/Threads.astro";
+import TwitterX from "../../icons/Twitter-x.astro";
+
+import FormattedDate from "../FormattedDate.astro";
+import { posteos } from "../../consts/social-rss.json";
+
+const SOCIAL_ICONS: Record<string, any> = {
+  Github,
+  Linkedin,
+  Bluesky,
+  Instagram,
+  Threads,
+  TwitterX,
+};
+---
+
+<Section>
+  <article class="text-[rgb(var(--primary),0.85)] flex flex-col gap-4">
+    <header class="flex flex-col gap-2">
+      <h2 class="flex items-center gap-2 text-pretty tracking-tight capitalize">
+        <Rss />
+        Blog <span class="text-[rgb(var(--primary),0.45)] font-extralight"
+          >|</span
+        > Social Media posts:
+      </h2>
+      <p class="font-light opacity-65 tracking-tight">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+      </p>
+    </header>
+    <footer class="text-[rgb(var(--light),0.85)]">
+      <ul class="flex flex-col gap-2">
+        {
+          posteos.map(({ network, title, description, url, date }) => {
+            const Icon = SOCIAL_ICONS[network];
+            if (!Icon) return null;
+            return (
+              <li>
+                <a
+                  href={url}
+                  title={`Visita ${network}`}
+                  class="flex items-center gap-2 w-fit"
+                >
+                  <div class="icono border-r border-[rgb(var(--light),0.5)] pr-2">
+                    <Icon />
+                  </div>
+                  <h3 class=" tracking-tighter capitalize ">{title}</h3>
+                  <time class="opacity-45 tracking-tighter border border-[rgb(var(--primary),0.55)] rounded px-1">{date}</time>
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </footer>
+  </article>
+</Section>
+
+<style>
+  article {
+    header {
+      h2 {
+        font-size: clamp(1.125rem, 1.0909rem + 0.1818vw, 1.25rem);
+        font-weight: 600;
+      }
+      p {
+        font-size: clamp(0.875rem, 0.838rem + 0.1852vw, 1rem);
+      }
+    }
+    footer {
+      ul {
+        li {
+          a {
+            h3 {
+              font-size: clamp(0.875rem, 0.7639rem + 0.5556vw, 1.25rem);
+              font-weight: 200;
+              position: relative;
+              transition: all 0.2s ease;
+              &::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 100%;
+                height: 1px;
+                background-color: rgb(var(--primary),0.85);
+                transition: .2s;
+                transform-origin: left;
+                transform: scaleX(0);
+              }
+              &:hover {
+                color: rgb(var(--primary),0.85);
+              }
+              &:hover::after {
+                transform: scaleX(1);
+              }
+            }
+            time {
+              font-family: var(--mono);
+              font-size: clamp(0.75rem, 0.713rem + 0.1852vw, 0.875rem);
+              font-weight: 300;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

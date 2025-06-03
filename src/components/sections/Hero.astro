@@ -42,7 +42,7 @@ const printInfo = [
 ---
 
 <Section>
-  <article>
+  <article class="animate-fade-in-up">
     <header>
       <h1>
         desarrollo web <span>|</span> tecnología <span>|</span> social media + opinión.
@@ -97,8 +97,8 @@ const printInfo = [
   </article>
 </Section>
 
-<style>
-  article {       
+<style>  
+  article {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -130,8 +130,8 @@ const printInfo = [
           to right,
           rgb(var(--primary)),
           rgb(var(--accent)),
-          rgb(var(--yellow-light),0.45),
-          rgb(var(--light),0.65),
+          rgb(var(--yellow-light), 0.45),
+          rgb(var(--light), 0.65),
           rgb(var(--primary))
         );
         background-size: var(--bg-size);
@@ -140,11 +140,11 @@ const printInfo = [
         animation: animate 2s linear infinite;
         animation: animate 2s ease infinite;
         span {
-          font-weight: 200;          
+          font-weight: 200;
         }
       }
       h2 {
-        color: rgb(var(--light), 0.65);        
+        color: rgb(var(--light), 0.65);
         font-size: clamp(1.125rem, 1.0139rem + 0.5556vw, 1.5rem);
         font-weight: 300;
         text-wrap: pretty;
@@ -212,7 +212,7 @@ const printInfo = [
       img {
         display: block;
         width: 100%;
-        opacity:0.85;
+        opacity: 0.85;
         aspect-ratio: 1;
         object-fit: cover;
         object-position: top;

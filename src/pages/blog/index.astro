@@ -2,6 +2,9 @@
 import Layout from "../../layouts/Layout.astro";
 import Section from "../../components/Section.astro";
 import Header from "../../components/Header.astro";
+import FeaturedPosts from "../../components/sections/FeaturedPosts.astro";
+import GlobalPosts from '../../components/sections/GlobalPosts.astro'
+import GlobalRss from "../../components/sections/GlobalRss.astro";
 import Footer from "../../components/Footer.astro";
 
 import Spreadsheet from "../../icons/Spreadsheet.astro";
@@ -21,7 +24,9 @@ const posts = (await getCollection("blog")).sort(
 
 <Layout title={`Blog de ${name} • ${label}`}>
   <Header />
-  <Section>
+  <GlobalPosts />
+  <GlobalRss />
+  <!-- <Section>
     <article>
       <header>
         <h2>
@@ -49,8 +54,8 @@ const posts = (await getCollection("blog")).sort(
         </ul>
       </footer>
     </article>
-  </Section>
-  <Section>
+  </Section> -->
+  <!-- <Section>
     <article>
       <header>
         <h2>
@@ -77,7 +82,8 @@ const posts = (await getCollection("blog")).sort(
         </ul>
       </footer>
     </article>
-  </Section>
+  </Section> -->
+  <!-- <FeaturedPosts /> -->
   <Footer />
 </Layout>
 

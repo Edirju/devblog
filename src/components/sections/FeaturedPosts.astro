@@ -1,0 +1,310 @@
+---
+import Section from "../Section.astro";
+import Spreadsheet from "../../icons/Spreadsheet.astro";
+import Detail from "../../icons/Detail.astro";
+import FormattedDate from "../FormattedDate.astro";
+import { getCollection } from "astro:content";
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const featuredPost = posts.length > 0 ? posts[0] : null;
+const gridPosts = posts.length > 1 ? posts.slice(1, 4) : [];
+const listPosts = posts.length > 4 ? posts.slice(4) : [];
+---
+
+<Section>
+  <section class="blog-layout">
+    {posts.length === 0 && <p>No hay publicaciones disponibles de momento.</p>}
+    {
+      featuredPost && (
+        <article class="featured-post">
+          <a
+            href={`/blog/${featuredPost.id}/`}
+            aria-label={`Leer más ${featuredPost.data.title}`}
+          >
+            {featuredPost.data.heroImage && (
+              <img
+                src={featuredPost.data.heroImage}
+                alt={`Imagen ${featuredPost.data.title}`}
+                class="featured-post__image"
+                loading="lazy"
+              />
+            )}
+            <div class="featured-post__content">
+              <header>
+                <h2 class="featured-post__title">{featuredPost.data.title}</h2>
+                <time class="featured-post__date">
+                  <FormattedDate date={featuredPost.data.pubDate} />
+                </time>
+              </header>
+              <p class="featured-post__description">
+                {featuredPost.data.description}
+              </p>
+            </div>
+          </a>
+        </article>
+      )
+    }
+    {
+      gridPosts.length > 0 && (
+        <div class="grid-posts">
+          {gridPosts.map((post) => (
+            <article class="grid-post-item">
+              <a href={`/blog/${post.id}`} title={`Leer ${post.data.title}`}>
+                {post.data.heroImage && (
+                  <img
+                    src={post.data.heroImage}
+                    alt=""
+                    class="grid-post-item__image"
+                    loading="lazy"
+                  />
+                )}
+                <div class="grid-post-item__content">
+                  <header>
+                    <h3 class="grid-post-item__title">{post.data.title}</h3>
+                    <time class="grid-post-item__date">
+                      <FormattedDate date={post.data.pubDate} />
+                    </time>
+                  </header>
+                  <p class="grid-post-item__description">
+                    {post.data.description}
+                  </p>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      )
+    }
+    {
+      listPosts.length > 0 && (
+        <div class="list-posts-wrapper">
+          <h2 class="list-posts-title">Mas posts...</h2>
+          <ul class="list-posts">
+            {listPosts.map((post) => (
+              <li class="list-post-item">
+                <article class="">
+                  <a href={`/blog/${post.id}`}>
+                    {post.data.heroImage && (
+                      <img
+                        src={post.data.heroImage}
+                        alt=""
+                        class="list-post-item__image"
+                      />
+                    )}
+                    <div class="list-post-item__content">
+                      <header>
+                        <h3 class="list-post-item__title">{post.data.title}</h3>
+                        <time datetime="" class="list-post-item__date">
+                          <FormattedDate date={post.data.pubDate} />
+                        </time>
+                      </header>
+                      <p class="post-post-item__description">
+                        {post.data.description}
+                      </p>
+                    </div>
+                  </a>
+                </article>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </section>
+</Section>
+
+<style>
+  .blog-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* Espacio entre secciones */
+  }
+  /* Estilos generales para los enlaces de post */
+  .featured-post a,
+  .grid-post-item a,
+  .list-post-item article a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background-color: rgb(var(--primary));
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition:
+      transform 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out;
+  }
+  .featured-post a:hover,
+  .grid-post-item a:hover,
+  .list-post-item article a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  .featured-post {
+    width: 100%;
+  }
+  .featured-post a {
+    /* En mobile, imagen arriba, texto abajo por defecto */
+  }
+  .featured-post__image {
+    width: 100%;
+    height: auto; /* Mantiene la proporción */
+    max-height: 250px; /* Altura máxima en mobile */
+    object-fit: cover;
+    display: block;
+  }
+  .featured-post__content {
+    padding: 1rem;
+  }
+  .featured-post__title {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  .featured-post__date {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .featured-post__description {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+  }
+  /* --- Grid Posts (3 columnas en desktop, stack en mobile) --- */
+  .grid-posts {
+    display: grid;
+    grid-template-columns: 1fr; /* Por defecto 1 columna (mobile) */
+    gap: 1.5rem;
+  }
+  .grid-post-item__image {
+    width: 100%;
+    height: 180px; /* Altura fija para consistencia en la grilla */
+    object-fit: cover;
+    display: block;
+  }
+  .grid-post-item__content {
+    padding: 1rem;
+  }
+  .grid-post-item__title {
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    color: #333;
+  }
+  .grid-post-item__date {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .grid-post-item__description {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    /* Limitar número de líneas para que no descuadre mucho el grid */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* --- List Posts (stack en mobile y desktop, con estilo de lista) --- */
+  .list-posts-wrapper {
+    margin-top: 1rem; /* Espacio extra antes de la lista */
+  }
+  .list-posts-title {
+    font-size: 1.8rem;
+    color: #222;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+  }
+  .list-posts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .list-post-item article a {
+    display: flex; /* Imagen a la izquierda, texto a la derecha en mobile y desktop */
+    flex-direction: column; /* Stack por defecto */
+    gap: 1rem;
+    align-items: flex-start; /* Alinea imagen y contenido al inicio */
+  }
+  .list-post-item__image {
+    width: 100%; /* Ocupa todo el ancho en el stack */
+    max-width: 120px; /* Limita el ancho si se pone al lado */
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0; /* Evita que la imagen se encoja */
+  }
+  .list-post-item__content {
+    padding: 0; /* Ya está en el 'a' */
+    flex-grow: 1;
+  }
+  .list-post-item__title {
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    color: #333;
+  }
+  .list-post-item__date {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .list-post-item__description {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+  }
+  /* --- Responsive Design --- */
+
+  /* Tablet y Desktop pequeño (ej. a partir de 768px) */
+  @media (min-width: 768px) {
+    .featured-post a {
+      display: flex; /* Imagen a la izquierda, contenido a la derecha */
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .featured-post__image {
+      width: 40%; /* Ancho de la imagen en desktop */
+      max-width: 400px;
+      height: 300px; /* Altura para el post destacado en desktop */
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .featured-post__content {
+      flex-grow: 1;
+      padding: 1.5rem;
+    }
+    .featured-post__title {
+      font-size: 2rem;
+    }
+
+    .grid-posts {
+      grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    }
+
+    .list-post-item article a {
+      flex-direction: row; /* Imagen a la izquierda, texto a la derecha */
+      align-items: flex-start;
+    }
+    .list-post-item__image {
+      width: 120px; /* Tamaño fijo para la imagen en la lista */
+      height: 100px;
+    }
+    .list-post-item__content {
+      padding-left: 1rem; /* Espacio entre imagen y texto */
+    }
+  }
+</style>

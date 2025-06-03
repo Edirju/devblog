@@ -1,0 +1,206 @@
+---
+import Section from "../Section.astro";
+import Left from "../../icons/Left.astro";
+import Right from "../../icons/Right.astro";
+
+import FormattedDate from "../FormattedDate.astro";
+import { getCollection } from "astro:content";
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+// Opcional: Limitar número de posts a mostrar.
+const postsToShow = posts.slice(0, 5);
+// Si no hay: No renderizar o mostrar mensaje
+if (postsToShow.length === 0) {
+  return null;
+}
+---
+
+<Section>
+  <div class="blog-slider-container">
+    <div class="slider-wrapper" id="blogSliderWrapper">
+      {
+        postsToShow.map((post) => (
+          <div class="slide">
+            <a href={`/blog/${post.id}/`} class="slide-link">
+              {post.data.heroImage && (
+                <img
+                  src={post.data.heroImage}
+                  alt=""
+                  class="slide-image"
+                  loading="lazy"
+                />
+              )}
+              <div class="slide-content">
+                <h3 class="slide-title">{post.data.title}</h3>
+                <FormattedDate date={post.data.pubDate} />
+                <p>{post.data.description}</p>
+              </div>
+            </a>
+          </div>
+        ))
+      }
+    </div>
+    <div class="slider-navigation">
+      <button aria-label="Previous slide" id="prevBtn" class="nav-button"
+        ><Left /></button
+      >
+      <button aria-label="Next slide" id="nextBtn" class="nav-button"
+        ><Right /></button
+      >
+    </div>
+  </div>
+</Section>
+
+<style>
+  .blog-slider-container {
+    color: rgb(var(--light), 0.85);
+    font-family: var(--body);
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    margin: 2rem auto;
+    overflow: hidden;
+  }
+  .slider-wrapper {
+    display: flex;
+    overflow-x: auto; /* Permite el scroll horizontal */
+    scroll-snap-type: x mandatory; /* Engancha los slides */
+    -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+    scroll-behavior: smooth; /* Animación suave al usar botones */
+    /* Ocultar la barra de scroll */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+  .slider-wrapper::-webkit-scrollbar {
+    /* WebKit */
+    display: none;
+  }
+  .slide {
+    flex: 0 0 100%; /* Cada slide ocupa el 100% del ancho del wrapper */
+    /* Para mostrar varios slides a la vez, ajusta este valor. Ej: 50% para 2 slides */
+    /* Si usas un valor menor al 100%, considera añadir gap al .slider-wrapper */
+    /* gap: 1rem; */
+    scroll-snap-align: start; /* Alinea el inicio del slide con el viewport del scroll */
+    box-sizing: border-box;
+    padding: 0 10px; /* Pequeño espaciado si se ven bordes de slides adyacentes */
+  }
+  .slide-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+  .slide-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+  .slide-content {
+    padding: 1rem;
+  }
+  .slide-title {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+  }
+  .slider-navigation {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem; /* Para que los botones no estén pegados a los bordes */
+    pointer-events: none; /* Para que no bloqueen el contenido debajo */
+  }
+  .nav-button {
+    pointer-events: all; /* Reactiva los eventos para los botones */
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 0.5rem 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+    transition: background-color 0.2s;
+  }
+  .nav-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  .nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sliderWrapper = document.getElementById(
+      "blogSliderWrapper"
+    ) as HTMLElement | null;
+    const prevBtn = document.getElementById(
+      "prevBtn"
+    ) as HTMLButtonElement | null;
+    const nextBtn = document.getElementById(
+      "nextBtn"
+    ) as HTMLButtonElement | null;
+
+    if (!sliderWrapper || !prevBtn || !nextBtn) {
+      console.warn("Slider elements not found.");
+      return;
+    }
+
+    const scrollAmount = () => {
+      // Si cada slide es 100% del wrapper, el scroll es el ancho del wrapper
+      // Si tienes slides de ancho fijo o porcentaje, calcula el ancho del slide:
+      // const firstSlide = sliderWrapper.querySelector('.slide') as HTMLElement;
+      // return firstSlide ? firstSlide.offsetWidth : sliderWrapper.offsetWidth;
+      return sliderWrapper.offsetWidth;
+    };
+
+    const updateButtonStates = () => {
+      if (!sliderWrapper || !prevBtn || !nextBtn) return;
+
+      const currentScroll = sliderWrapper.scrollLeft;
+      const maxScroll = sliderWrapper.scrollWidth - sliderWrapper.clientWidth;
+
+      prevBtn.disabled = currentScroll <= 0;
+      // Usamos un pequeño margen de error (e.g., 1px) para la comparación del scroll máximo
+      // debido a posibles imprecisiones con decimales en los cálculos del navegador.
+      nextBtn.disabled = currentScroll >= maxScroll - 1;
+    };
+
+    prevBtn.addEventListener("click", () => {
+      sliderWrapper.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+    });
+
+    nextBtn.addEventListener("click", () => {
+      sliderWrapper.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+    });
+
+    // Actualizar estado de botones al cargar y al hacer scroll manual
+    sliderWrapper.addEventListener("scroll", updateButtonStates);
+    // Llamada inicial para establecer el estado correcto de los botones
+    updateButtonStates();
+
+    // Opcional: Actualizar al redimensionar la ventana
+    // (especialmente si el scrollAmount depende del tamaño del slide)
+    let resizeTimeout: ReturnType<typeof setTimeout>;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(updateButtonStates, 100);
+    });
+  });
+</script>

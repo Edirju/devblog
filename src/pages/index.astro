@@ -3,6 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Hero from "../components/sections/Hero.astro";
 import Skills from '../components/sections/Skills.astro'
+import BlogSlider from "../components/sections/BlogSlider.astro";
+import SliderPost from "../components/sections/SliderPost.astro";
 import BlogPosts from '../components/sections/BlogPosts.astro'
 import RssPosts from '../components/sections/RssPosts.astro'
 import Footer from "../components/Footer.astro";
@@ -15,7 +17,9 @@ const { name, label } = basics;
   <Header />
   <Hero />
   <Skills />
-  <BlogPosts />
+  <SliderPost />
+  <!-- <BlogSlider /> -->
+  <!-- <BlogPosts /> -->
   <RssPosts />
   <Footer />
 </Layout>
